@@ -1,33 +1,32 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
-class AddCustomerScreen extends StatefulWidget {
-  const AddCustomerScreen({super.key});
+class AddServiceScreen extends StatefulWidget {
+  const AddServiceScreen({super.key});
 
   @override
-  State<AddCustomerScreen> createState() => _AddCustomerScreenState();
+  State<AddServiceScreen> createState() => _AddServiceScreenState();
 }
 
-class _AddCustomerScreenState extends State<AddCustomerScreen> {
+class _AddServiceScreenState extends State<AddServiceScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _addressController = TextEditingController();
-  final _contactController = TextEditingController();
-  final _phone1Controller = TextEditingController();
-  final _additionalNotesController = TextEditingController();
-  final _internalNotesController = TextEditingController();
+  final _priceController = TextEditingController();
+  final _durationController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _categoryController = TextEditingController();
+  String _durationUnit = 'giờ'; // Mặc định là giờ
   bool _isHidden = false;
+
+  final List<String> _durationUnits = ['phút', 'giờ', 'ngày'];
 
   @override
   void dispose() {
     _nameController.dispose();
-    _emailController.dispose();
-    _addressController.dispose();
-    _contactController.dispose();
-    _phone1Controller.dispose();
-    _additionalNotesController.dispose();
-    _internalNotesController.dispose();
+    _priceController.dispose();
+    _durationController.dispose();
+    _descriptionController.dispose();
+    _categoryController.dispose();
     super.dispose();
   }
 
@@ -38,7 +37,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         title: const Text(
-          'Thêm khách hàng',
+          'Thêm dịch vụ',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
         ),
         leading: IconButton(
@@ -50,7 +49,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
             icon: const Icon(Icons.check, color: Colors.white),
             onPressed: () {
               if (_formKey.currentState?.validate() ?? false) {
-                // Lưu thông tin khách hàng
+                // Lưu thông tin dịch vụ
                 Navigator.pop(context);
               }
             },
@@ -64,66 +63,107 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Thông tin cơ bản
+              // Thông tin cơ bản dịch vụ
               _buildSectionCard(
                 title: 'Thông tin cơ bản',
-                icon: Icons.person,
+                icon: Icons.miscellaneous_services,
                 children: [
                   _buildTextField(
-                    label: 'Tên khách hàng',
+                    label: 'Tên dịch vụ',
                     controller: _nameController,
-                    icon: Icons.person_outline,
+                    icon: Icons.label_outline,
                     isRequired: true,
                   ),
                   _buildTextField(
-                    label: 'Email',
-                    controller: _emailController,
-                    icon: Icons.email_outlined,
-                    keyboardType: TextInputType.emailAddress,
+                    label: 'Danh mục',
+                    controller: _categoryController,
+                    icon: Icons.category_outlined,
                   ),
                 ],
               ),
 
               const SizedBox(height: 16),
 
-              // Thông tin liên lạc
+              // Thông tin giá và thời gian
               _buildSectionCard(
-                title: 'Thông tin liên lạc',
-                icon: Icons.contact_phone,
+                title: 'Giá và thời gian',
+                icon: Icons.price_change_outlined,
                 children: [
                   _buildTextField(
-                    label: 'Địa chỉ',
-                    controller: _addressController,
-                    icon: Icons.location_on_outlined,
-                    maxLines: 2,
+                    label: 'Giá dịch vụ',
+                    controller: _priceController,
+                    icon: Icons.monetization_on_outlined,
+                    keyboardType: TextInputType.number,
+                    isRequired: true,
                   ),
-                  _buildTextField(
-                    label: 'Số điện thoại',
-                    controller: _phone1Controller,
-                    icon: Icons.phone_outlined,
-                    keyboardType: TextInputType.phone,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: _buildTextField(
+                          label: 'Thời gian thực hiện',
+                          controller: _durationController,
+                          icon: Icons.timer_outlined,
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              labelText: 'Đơn vị',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color: Colors.grey[300]!,
+                                ),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 16,
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                            ),
+                            value: _durationUnit,
+                            items:
+                                _durationUnits.map((String unit) {
+                                  return DropdownMenuItem<String>(
+                                    value: unit,
+                                    child: Text(unit),
+                                  );
+                                }).toList(),
+                            onChanged: (String? newValue) {
+                              if (newValue != null) {
+                                setState(() {
+                                  _durationUnit = newValue;
+                                });
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
 
               const SizedBox(height: 16),
 
-              // Ghi chú bổ sung
+              // Mô tả dịch vụ
               _buildSectionCard(
-                title: 'Ghi chú',
-                icon: Icons.note_outlined,
+                title: 'Mô tả dịch vụ',
+                icon: Icons.description_outlined,
                 children: [
                   _buildTextField(
-                    label: 'Ghi chú bổ sung',
-                    controller: _additionalNotesController,
+                    label: 'Mô tả chi tiết',
+                    controller: _descriptionController,
                     icon: Icons.notes,
-                    maxLines: 3,
-                  ),
-                  _buildTextField(
-                    label: 'Ghi chú nội bộ',
-                    controller: _internalNotesController,
-                    icon: Icons.visibility_off_outlined,
-                    maxLines: 3,
+                    maxLines: 4,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -137,7 +177,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
-                            'Không hiển thị cho khách hàng / nhà cung cấp',
+                            'Không hiển thị dịch vụ này cho khách hàng',
                             style: TextStyle(
                               color: Colors.grey[700],
                               fontSize: 15,
@@ -161,6 +201,27 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
 
               const SizedBox(height: 24),
 
+              // Nút "Thêm hình ảnh minh họa"
+              Container(
+                width: double.infinity,
+                height: 50,
+                margin: const EdgeInsets.only(bottom: 16),
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    // Thêm logic chọn hình ảnh ở đây
+                  },
+                  icon: const Icon(Icons.add_photo_alternate_outlined),
+                  label: const Text('Thêm hình ảnh minh họa'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.primary,
+                    side: const BorderSide(color: AppColors.primary),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ),
+
               // Nút lưu
               SizedBox(
                 width: double.infinity,
@@ -168,7 +229,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
-                      // Lưu thông tin khách hàng
+                      // Lưu thông tin dịch vụ
                       Navigator.pop(context);
                     }
                   },
@@ -181,7 +242,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                     elevation: 2,
                   ),
                   child: const Text(
-                    'Lưu khách hàng',
+                    'Lưu dịch vụ',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -236,6 +297,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
     bool isRequired = false,
     int maxLines = 1,
     TextInputType keyboardType = TextInputType.text,
+    String? hintText,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
@@ -245,6 +307,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
         maxLines: maxLines,
         decoration: InputDecoration(
           labelText: isRequired ? '$label *' : label,
+          hintText: hintText,
           prefixIcon: icon != null ? Icon(icon, color: Colors.grey[600]) : null,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),

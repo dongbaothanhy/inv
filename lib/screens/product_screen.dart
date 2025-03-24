@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/empty_screen_layout.dart';
+import 'add_product_screen.dart';
 
 class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key});
@@ -10,7 +11,10 @@ class ProductScreen extends StatelessWidget {
       title: 'Mặt hàng',
       icon: Icons.shopping_bag_outlined,
       onFabPressed: () {
-        // Xử lý thêm mặt hàng
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddProductScreen()),
+        );
       },
     );
   }

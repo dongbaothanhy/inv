@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
-class AddCustomerScreen extends StatefulWidget {
-  const AddCustomerScreen({super.key});
+class AddProductScreen extends StatefulWidget {
+  const AddProductScreen({super.key});
 
   @override
-  State<AddCustomerScreen> createState() => _AddCustomerScreenState();
+  State<AddProductScreen> createState() => _AddProductScreenState();
 }
 
-class _AddCustomerScreenState extends State<AddCustomerScreen> {
+class _AddProductScreenState extends State<AddProductScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _addressController = TextEditingController();
-  final _contactController = TextEditingController();
-  final _phone1Controller = TextEditingController();
-  final _additionalNotesController = TextEditingController();
-  final _internalNotesController = TextEditingController();
+  final _sellingPriceController = TextEditingController();
+  final _purchasePriceController = TextEditingController();
+  final _stockQuantityController = TextEditingController();
+  final _unitController = TextEditingController();
+  final _descriptionController = TextEditingController();
+  final _categoryController = TextEditingController();
+  bool _trackInventory = true;
   bool _isHidden = false;
 
   @override
   void dispose() {
     _nameController.dispose();
-    _emailController.dispose();
-    _addressController.dispose();
-    _contactController.dispose();
-    _phone1Controller.dispose();
-    _additionalNotesController.dispose();
-    _internalNotesController.dispose();
+    _sellingPriceController.dispose();
+    _purchasePriceController.dispose();
+    _stockQuantityController.dispose();
+    _unitController.dispose();
+    _descriptionController.dispose();
+    _categoryController.dispose();
     super.dispose();
   }
 
@@ -38,7 +39,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         title: const Text(
-          'Thêm khách hàng',
+          'Thêm mặt hàng',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
         ),
         leading: IconButton(
@@ -50,7 +51,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
             icon: const Icon(Icons.check, color: Colors.white),
             onPressed: () {
               if (_formKey.currentState?.validate() ?? false) {
-                // Lưu thông tin khách hàng
+                // Lưu thông tin sản phẩm
                 Navigator.pop(context);
               }
             },
@@ -64,66 +65,115 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Thông tin cơ bản
+              // Thông tin cơ bản sản phẩm
               _buildSectionCard(
                 title: 'Thông tin cơ bản',
-                icon: Icons.person,
+                icon: Icons.inventory_2_outlined,
                 children: [
                   _buildTextField(
-                    label: 'Tên khách hàng',
+                    label: 'Tên sản phẩm',
                     controller: _nameController,
-                    icon: Icons.person_outline,
+                    icon: Icons.label_outline,
                     isRequired: true,
                   ),
                   _buildTextField(
-                    label: 'Email',
-                    controller: _emailController,
-                    icon: Icons.email_outlined,
-                    keyboardType: TextInputType.emailAddress,
+                    label: 'Danh mục',
+                    controller: _categoryController,
+                    icon: Icons.category_outlined,
                   ),
                 ],
               ),
 
               const SizedBox(height: 16),
 
-              // Thông tin liên lạc
+              // Thông tin giá
               _buildSectionCard(
-                title: 'Thông tin liên lạc',
-                icon: Icons.contact_phone,
+                title: 'Thông tin giá',
+                icon: Icons.attach_money,
                 children: [
                   _buildTextField(
-                    label: 'Địa chỉ',
-                    controller: _addressController,
-                    icon: Icons.location_on_outlined,
-                    maxLines: 2,
+                    label: 'Giá bán',
+                    controller: _sellingPriceController,
+                    icon: Icons.sell_outlined,
+                    keyboardType: TextInputType.number,
+                    isRequired: true,
                   ),
                   _buildTextField(
-                    label: 'Số điện thoại',
-                    controller: _phone1Controller,
-                    icon: Icons.phone_outlined,
-                    keyboardType: TextInputType.phone,
+                    label: 'Giá nhập',
+                    controller: _purchasePriceController,
+                    icon: Icons.shopping_cart_outlined,
+                    keyboardType: TextInputType.number,
+                  ),
+                  _buildTextField(
+                    label: 'Đơn vị tính',
+                    controller: _unitController,
+                    icon: Icons.straighten_outlined,
+                    hintText: 'cái, kg, hộp, thùng...',
                   ),
                 ],
               ),
 
               const SizedBox(height: 16),
 
-              // Ghi chú bổ sung
+              // Thông tin tồn kho
               _buildSectionCard(
-                title: 'Ghi chú',
-                icon: Icons.note_outlined,
+                title: 'Thông tin tồn kho',
+                icon: Icons.inventory,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          _trackInventory
+                              ? Icons.check_box
+                              : Icons.check_box_outline_blank,
+                          color: AppColors.primary,
+                          size: 20,
+                        ),
+                        const SizedBox(width: 12),
+                        const Text(
+                          'Theo dõi tồn kho',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Spacer(),
+                        Switch(
+                          value: _trackInventory,
+                          onChanged: (bool value) {
+                            setState(() {
+                              _trackInventory = value;
+                            });
+                          },
+                          activeColor: AppColors.fabGreen,
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (_trackInventory)
+                    _buildTextField(
+                      label: 'Số lượng tồn kho',
+                      controller: _stockQuantityController,
+                      icon: Icons.warehouse_outlined,
+                      keyboardType: TextInputType.number,
+                    ),
+                ],
+              ),
+
+              const SizedBox(height: 16),
+
+              // Mô tả sản phẩm
+              _buildSectionCard(
+                title: 'Mô tả sản phẩm',
+                icon: Icons.description_outlined,
                 children: [
                   _buildTextField(
-                    label: 'Ghi chú bổ sung',
-                    controller: _additionalNotesController,
+                    label: 'Mô tả chi tiết',
+                    controller: _descriptionController,
                     icon: Icons.notes,
-                    maxLines: 3,
-                  ),
-                  _buildTextField(
-                    label: 'Ghi chú nội bộ',
-                    controller: _internalNotesController,
-                    icon: Icons.visibility_off_outlined,
-                    maxLines: 3,
+                    maxLines: 4,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
@@ -137,7 +187,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
-                            'Không hiển thị cho khách hàng / nhà cung cấp',
+                            'Không hiển thị sản phẩm này cho khách hàng',
                             style: TextStyle(
                               color: Colors.grey[700],
                               fontSize: 15,
@@ -161,6 +211,27 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
 
               const SizedBox(height: 24),
 
+              // Nút "Thêm hình ảnh"
+              Container(
+                width: double.infinity,
+                height: 50,
+                margin: const EdgeInsets.only(bottom: 16),
+                child: OutlinedButton.icon(
+                  onPressed: () {
+                    // Thêm logic chọn hình ảnh ở đây
+                  },
+                  icon: const Icon(Icons.add_photo_alternate_outlined),
+                  label: const Text('Thêm hình ảnh sản phẩm'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: AppColors.primary,
+                    side: const BorderSide(color: AppColors.primary),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+              ),
+
               // Nút lưu
               SizedBox(
                 width: double.infinity,
@@ -168,7 +239,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
-                      // Lưu thông tin khách hàng
+                      // Lưu thông tin sản phẩm
                       Navigator.pop(context);
                     }
                   },
@@ -181,7 +252,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                     elevation: 2,
                   ),
                   child: const Text(
-                    'Lưu khách hàng',
+                    'Lưu sản phẩm',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ),
@@ -236,6 +307,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
     bool isRequired = false,
     int maxLines = 1,
     TextInputType keyboardType = TextInputType.text,
+    String? hintText,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
@@ -245,6 +317,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
         maxLines: maxLines,
         decoration: InputDecoration(
           labelText: isRequired ? '$label *' : label,
+          hintText: hintText,
           prefixIcon: icon != null ? Icon(icon, color: Colors.grey[600]) : null,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),

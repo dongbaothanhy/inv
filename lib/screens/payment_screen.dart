@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/empty_screen_layout.dart';
+import 'add_payment_screen.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
@@ -8,10 +9,12 @@ class PaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return EmptyScreenLayout(
       title: 'Thanh toán',
-      icon: Icons.credit_card_outlined,
-      showSearchBar: false,
+      icon: Icons.credit_card,
       onFabPressed: () {
-        // Xử lý thêm thanh toán
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddPaymentScreen()),
+        );
       },
     );
   }

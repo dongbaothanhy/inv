@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
+// Xóa import không sử dụng
+// import '../theme/colors.dart';
 import '../utils/responsive_helper.dart';
-import '../theme/colors.dart';
+import 'create_order_screen.dart';
+// Xóa các import không sử dụng
+// import 'quotation_screen.dart';
+// import '../main.dart';
+// import 'invoice_screen.dart';
+// import 'dashboard_screen.dart';
+import '../widgets/shared_drawer.dart';
+// Import các màn hình khác nếu cần
 
-class OrderScreen extends StatelessWidget {
+class OrderScreen extends StatefulWidget {
   const OrderScreen({super.key});
 
+  @override
+  State<OrderScreen> createState() => _OrderScreenState();
+}
+
+class _OrderScreenState extends State<OrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +32,7 @@ class OrderScreen extends StatelessWidget {
           ),
         ),
         child: AppBar(
-          backgroundColor: AppColors.primary,
+          backgroundColor: const Color(0xFF4285f4),
           title: Text(
             'Đơn đặt hàng',
             style: TextStyle(
@@ -46,6 +60,7 @@ class OrderScreen extends StatelessWidget {
           ],
         ),
       ),
+      drawer: SharedDrawer(currentIndex: 2),
       body: Stack(
         children: [
           Column(
@@ -87,7 +102,7 @@ class OrderScreen extends StatelessWidget {
                 mobile: 48.0,
               ),
               decoration: BoxDecoration(
-                color: AppColors.fabGreen,
+                color: const Color(0xFF00c853),
                 borderRadius: BorderRadius.circular(28.0),
                 boxShadow: [
                   BoxShadow(
@@ -102,7 +117,12 @@ class OrderScreen extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(28.0),
                   onTap: () {
-                    // Xử lý khi nhấn nút thêm mới
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CreateOrderScreen(),
+                      ),
+                    );
                   },
                   child: Center(
                     child: Icon(

@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import '../utils/responsive_helper.dart';
-import '../theme/colors.dart';
+import 'create_quotation_screen.dart';
+import '../widgets/shared_drawer.dart';
 
-class QuotationScreen extends StatelessWidget {
+class QuotationScreen extends StatefulWidget {
   const QuotationScreen({super.key});
+
+  @override
+  State<QuotationScreen> createState() => _QuotationScreenState();
+}
+
+class _QuotationScreenState extends State<QuotationScreen> {
+  // Xóa biến không sử dụng
+  // bool _isProductExpanded = false;
+  // int _selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +28,7 @@ class QuotationScreen extends StatelessWidget {
           ),
         ),
         child: AppBar(
-          backgroundColor: AppColors.primary,
+          backgroundColor: const Color(0xFF4285f4),
           title: Text(
             'Bảng báo giá',
             style: TextStyle(
@@ -46,6 +56,7 @@ class QuotationScreen extends StatelessWidget {
           ],
         ),
       ),
+      drawer: SharedDrawer(currentIndex: 1),
       body: Stack(
         children: [
           Column(
@@ -55,8 +66,7 @@ class QuotationScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 100.0),
                     child: Icon(
-                      Icons
-                          .list_alt_outlined, // Icon khác với các màn hình khác
+                      Icons.list_alt,
                       size: 64.0,
                       color: const Color(0xFFa8c7fa),
                     ),
@@ -88,7 +98,7 @@ class QuotationScreen extends StatelessWidget {
                 mobile: 48.0,
               ),
               decoration: BoxDecoration(
-                color: AppColors.fabGreen,
+                color: const Color(0xFF00c853),
                 borderRadius: BorderRadius.circular(28.0),
                 boxShadow: [
                   BoxShadow(
@@ -103,7 +113,12 @@ class QuotationScreen extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(28.0),
                   onTap: () {
-                    // Xử lý khi nhấn nút thêm mới
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CreateQuotationScreen(),
+                      ),
+                    );
                   },
                   child: Center(
                     child: Icon(
@@ -124,4 +139,7 @@ class QuotationScreen extends StatelessWidget {
       ),
     );
   }
+
+  // Xóa phương thức _onMenuItemTap vì không sử dụng nữa
+  // Tất cả logic điều hướng đã được chuyển sang component SharedDrawer
 }

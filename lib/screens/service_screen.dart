@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/empty_screen_layout.dart';
+import 'add_service_screen.dart';
 
 class ServiceScreen extends StatelessWidget {
   const ServiceScreen({super.key});
@@ -10,7 +11,10 @@ class ServiceScreen extends StatelessWidget {
       title: 'Dịch vụ',
       icon: Icons.miscellaneous_services_outlined,
       onFabPressed: () {
-        // Xử lý thêm dịch vụ
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddServiceScreen()),
+        );
       },
     );
   }

@@ -1,33 +1,23 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
-class AddCustomerScreen extends StatefulWidget {
-  const AddCustomerScreen({super.key});
+class AddCategoryScreen extends StatefulWidget {
+  const AddCategoryScreen({super.key});
 
   @override
-  State<AddCustomerScreen> createState() => _AddCustomerScreenState();
+  State<AddCategoryScreen> createState() => _AddCategoryScreenState();
 }
 
-class _AddCustomerScreenState extends State<AddCustomerScreen> {
+class _AddCategoryScreenState extends State<AddCategoryScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _addressController = TextEditingController();
-  final _contactController = TextEditingController();
-  final _phone1Controller = TextEditingController();
-  final _additionalNotesController = TextEditingController();
-  final _internalNotesController = TextEditingController();
-  bool _isHidden = false;
+  final _descriptionController = TextEditingController();
+  String _categoryType = 'product'; // Mặc định là danh mục sản phẩm
 
   @override
   void dispose() {
     _nameController.dispose();
-    _emailController.dispose();
-    _addressController.dispose();
-    _contactController.dispose();
-    _phone1Controller.dispose();
-    _additionalNotesController.dispose();
-    _internalNotesController.dispose();
+    _descriptionController.dispose();
     super.dispose();
   }
 
@@ -38,7 +28,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         title: const Text(
-          'Thêm khách hàng',
+          'Thêm danh mục',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
         ),
         leading: IconButton(
@@ -50,7 +40,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
             icon: const Icon(Icons.check, color: Colors.white),
             onPressed: () {
               if (_formKey.currentState?.validate() ?? false) {
-                // Lưu thông tin khách hàng
+                // Lưu thông tin danh mục
                 Navigator.pop(context);
               }
             },
@@ -64,97 +54,43 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Thông tin cơ bản
+              // Thông tin cơ bản danh mục
               _buildSectionCard(
-                title: 'Thông tin cơ bản',
-                icon: Icons.person,
+                title: 'Thông tin danh mục',
+                icon: Icons.category_outlined,
                 children: [
                   _buildTextField(
-                    label: 'Tên khách hàng',
+                    label: 'Tên danh mục',
                     controller: _nameController,
-                    icon: Icons.person_outline,
+                    icon: Icons.label_outline,
                     isRequired: true,
                   ),
                   _buildTextField(
-                    label: 'Email',
-                    controller: _emailController,
-                    icon: Icons.email_outlined,
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 16),
-
-              // Thông tin liên lạc
-              _buildSectionCard(
-                title: 'Thông tin liên lạc',
-                icon: Icons.contact_phone,
-                children: [
-                  _buildTextField(
-                    label: 'Địa chỉ',
-                    controller: _addressController,
-                    icon: Icons.location_on_outlined,
-                    maxLines: 2,
-                  ),
-                  _buildTextField(
-                    label: 'Số điện thoại',
-                    controller: _phone1Controller,
-                    icon: Icons.phone_outlined,
-                    keyboardType: TextInputType.phone,
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 16),
-
-              // Ghi chú bổ sung
-              _buildSectionCard(
-                title: 'Ghi chú',
-                icon: Icons.note_outlined,
-                children: [
-                  _buildTextField(
-                    label: 'Ghi chú bổ sung',
-                    controller: _additionalNotesController,
-                    icon: Icons.notes,
+                    label: 'Mô tả',
+                    controller: _descriptionController,
+                    icon: Icons.description_outlined,
                     maxLines: 3,
                   ),
-                  _buildTextField(
-                    label: 'Ghi chú nội bộ',
-                    controller: _internalNotesController,
-                    icon: Icons.visibility_off_outlined,
-                    maxLines: 3,
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Loại danh mục',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Row(
-                      children: [
-                        Icon(
-                          _isHidden ? Icons.visibility_off : Icons.visibility,
-                          color: Colors.grey[600],
-                          size: 20,
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            'Không hiển thị cho khách hàng / nhà cung cấp',
-                            style: TextStyle(
-                              color: Colors.grey[700],
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                        Switch(
-                          value: _isHidden,
-                          onChanged: (bool value) {
-                            setState(() {
-                              _isHidden = value;
-                            });
-                          },
-                          activeColor: AppColors.fabGreen,
-                        ),
-                      ],
-                    ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      _buildCategoryTypeOption(
+                        type: 'product',
+                        title: 'Sản phẩm',
+                        icon: Icons.inventory_2_outlined,
+                      ),
+                      const SizedBox(width: 16),
+                      _buildCategoryTypeOption(
+                        type: 'service',
+                        title: 'Dịch vụ',
+                        icon: Icons.miscellaneous_services_outlined,
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -168,7 +104,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState?.validate() ?? false) {
-                      // Lưu thông tin khách hàng
+                      // Lưu thông tin danh mục
                       Navigator.pop(context);
                     }
                   },
@@ -181,9 +117,58 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
                     elevation: 2,
                   ),
                   child: const Text(
-                    'Lưu khách hàng',
+                    'Lưu danh mục',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCategoryTypeOption({
+    required String type,
+    required String title,
+    required IconData icon,
+  }) {
+    final isSelected = _categoryType == type;
+
+    return Expanded(
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            _categoryType = type;
+          });
+        },
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: isSelected ? AppColors.primary : Colors.grey[300]!,
+              width: isSelected ? 2 : 1,
+            ),
+            borderRadius: BorderRadius.circular(12),
+            color: isSelected ? AppColors.primary.withAlpha(20) : Colors.white,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                size: 32,
+                color: isSelected ? AppColors.primary : Colors.grey[600],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  color: isSelected ? AppColors.primary : Colors.grey[800],
                 ),
               ),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../utils/responsive_helper.dart';
 import '../theme/colors.dart';
+import '../widgets/shared_drawer.dart';
 
 class InvoiceScreen extends StatelessWidget {
   const InvoiceScreen({super.key});
@@ -121,6 +122,7 @@ class InvoiceScreen extends StatelessWidget {
           ),
         ],
       ),
+      drawer: SharedDrawer(currentIndex: 4),
     );
   }
 }

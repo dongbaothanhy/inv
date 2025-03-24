@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/empty_screen_layout.dart';
+import 'add_expense_screen.dart';
 
 class ExpenseScreen extends StatelessWidget {
   const ExpenseScreen({super.key});
@@ -11,7 +12,10 @@ class ExpenseScreen extends StatelessWidget {
       icon: Icons.attach_money,
       showSearchBar: false,
       onFabPressed: () {
-        // Xử lý thêm chi phí
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddExpenseScreen()),
+        );
       },
     );
   }
