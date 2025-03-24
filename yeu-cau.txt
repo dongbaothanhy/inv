@@ -1,0 +1,337 @@
+DOCUMENT PROMPT: LỘ TRÌNH VÀ QUY TRÌNH PHÁT TRIỂN PHẦN MỀM QUẢN LÝ DOANH NGHIỆP NHỎ (MOBILE ANDROID - FLUTTER, SQLITE, MVP + BLOC/CUBIT)
+
+1. GIỚI THIỆU
+
+Mục tiêu: Phát triển một ứng dụng mobile Android (sử dụng Flutter) giúp các doanh nghiệp nhỏ quản lý hoạt động kinh doanh hiệu quả, tập trung vào các chức năng cốt lõi và dễ sử dụng (MVP - Minimum Viable Product).
+
+Công nghệ chính:
+
+Frontend (Giao diện): Flutter (đa nền tảng, hiệu suất cao, UI đẹp)
+
+Backend (Cơ sở dữ liệu): SQLite (cơ sở dữ liệu nhúng, đơn giản, phù hợp mobile)
+
+Kiến trúc phần mềm: MVP (Model-View-Presenter) kết hợp với Bloc/Cubit (quản lý state)
+
+Đối tượng mục tiêu: Doanh nghiệp nhỏ, cửa hàng, hộ kinh doanh cá thể.
+
+Phong cách phát triển: Agile/Iterative (lặp đi lặp lại, linh hoạt điều chỉnh theo phản hồi).
+
+2. LỘ TRÌNH PHÁT TRIỂN (GIAI ĐOẠN)
+
+GIAI ĐOẠN 1: MVP - CÁC CHỨC NĂNG CỐT LÕI (4-6 tuần)
+
+Mục tiêu: Xây dựng phiên bản ứng dụng tối thiểu hoạt động được, có các chức năng quan trọng nhất để giải quyết vấn đề cốt lõi cho người dùng, và có thể đưa ra thị trường thử nghiệm sớm.
+
+Tính năng MVP dự kiến (Ví dụ):
+
+Quản lý Khách hàng:
+
+Xem danh sách khách hàng
+
+Thêm khách hàng mới (tên, số điện thoại, địa chỉ...)
+
+Xem chi tiết thông tin khách hàng
+
+Quản lý Mặt hàng/Dịch vụ:
+
+Xem danh sách mặt hàng/dịch vụ
+
+Thêm mặt hàng/dịch vụ mới (tên, đơn giá...)
+
+Xem chi tiết mặt hàng/dịch vụ
+
+Tạo Hóa đơn (Đơn giản):
+
+Tạo hóa đơn mới
+
+Chọn khách hàng cho hóa đơn
+
+Thêm mặt hàng/dịch vụ vào hóa đơn
+
+Tính tổng tiền hóa đơn
+
+Xem danh sách hóa đơn
+
+Bảng điều khiển (Dashboard) cơ bản:
+
+Thống kê số lượng khách hàng, mặt hàng, hóa đơn.
+
+Tổng doanh thu (ước tính - có thể đơn giản).
+
+GIAI ĐOẠN 2: CẢI TIẾN VÀ MỞ RỘNG MVP (4-8 tuần)
+
+Mục tiêu: Cải thiện trải nghiệm người dùng dựa trên phản hồi từ giai đoạn MVP, bổ sung các tính năng quan trọng còn thiếu, và tăng tính ổn định và hiệu suất của ứng dụng.
+
+Tính năng mở rộng dự kiến (Ví dụ):
+
+Quản lý Nhà cung cấp: (Tương tự như quản lý khách hàng)
+
+Quản lý Chi phí:
+
+Ghi nhận chi phí phát sinh
+
+Phân loại chi phí
+
+Báo cáo chi phí cơ bản
+
+Thanh toán:
+
+Ghi nhận thanh toán hóa đơn (tiền mặt, chuyển khoản...)
+
+Theo dõi công nợ khách hàng (nợ phải thu)
+
+Báo cáo chi tiết hơn:
+
+Báo cáo doanh thu theo thời gian (tháng, quý, năm)
+
+Báo cáo chi phí
+
+Báo cáo lợi nhuận gộp (ước tính)
+
+Xuất dữ liệu: Xuất danh sách khách hàng, hóa đơn, báo cáo ra file (CSV, Excel...).
+
+GIAI ĐOẠN 3: HOÀN THIỆN VÀ TRIỂN KHAI RỘNG (4-? tuần - Liên tục)
+
+Mục tiêu: Hoàn thiện ứng dụng, tập trung vào trải nghiệm người dùng cao cấp, tính năng nâng cao, bảo mật, hiệu suất tối ưu, và mở rộng kênh phân phối, hỗ trợ khách hàng.
+
+Tính năng nâng cao dự kiến (Ví dụ):
+
+Phân quyền người dùng: Nhiều user với vai trò khác nhau (chủ, nhân viên...)
+
+Quản lý Kho hàng (nếu cần): Quản lý số lượng tồn kho, nhập kho, xuất kho (tùy nhu cầu đối tượng mục tiêu).
+
+Tích hợp Thanh toán Online: (Ví dụ: VNPay, Momo - tùy thị trường)
+
+Thông báo và nhắc nhở: Nhắc nợ khách hàng, thông báo sự kiện, khuyến mãi...
+
+Tùy chỉnh giao diện và báo cáo: Cho phép người dùng tùy biến một số phần của ứng dụng.
+
+Hỗ trợ đa ngôn ngữ: Nếu có kế hoạch mở rộng ra thị trường khác.
+
+Cải thiện hiệu suất và tối ưu hóa: Đảm bảo ứng dụng chạy mượt mà trên nhiều thiết bị Android.
+
+Tăng cường bảo mật dữ liệu: Mã hóa dữ liệu nhạy cảm, bảo vệ chống truy cập trái phép.
+
+Phát triển phiên bản iOS (nếu có nhu cầu): Tận dụng code Flutter để phát triển ứng dụng cho iOS.
+
+Lưu ý: Lộ trình trên chỉ là ví dụ. Bạn cần điều chỉnh các giai đoạn và tính năng cụ thể cho phù hợp với mục tiêu, nguồn lực, và phản hồi từ thị trường. Giai đoạn 3 là giai đoạn liên tục cải tiến và phát triển, không có điểm kết thúc cố định.
+
+3. QUY TRÌNH PHÁT TRIỂN TỪNG BƯỚC (THEO KIẾN TRÚC MVP + BLOC/CUBIT)
+
+Bước 1: PHÂN TÍCH YÊU CẦU & LẬP KẾ HOẠCH CHI TIẾT (Trước mỗi giai đoạn và trước mỗi tính năng lớn)
+
+Xác định rõ yêu cầu người dùng:
+
+Nghiên cứu thị trường, khảo sát doanh nghiệp nhỏ để hiểu rõ nhu cầu thực tế.
+
+Xác định các vấn đề chính mà ứng dụng cần giải quyết.
+
+Lập danh sách các tính năng mong muốn (Product Backlog).
+
+Ưu tiên tính năng cho MVP:
+
+Chọn ra các tính năng cốt lõi nhất cho giai đoạn MVP (ưu tiên giá trị cao, độ phức tạp vừa phải).
+
+Xác định tiêu chí hoàn thành (Definition of Done - DoD) cho mỗi tính năng.
+
+Lập kế hoạch phát triển:
+
+Chia nhỏ tính năng thành các task nhỏ hơn.
+
+Ước tính thời gian cho mỗi task.
+
+Phân công công việc (nếu làm việc nhóm).
+
+Lên kế hoạch Sprint (nếu theo Scrum).
+
+Thiết lập môi trường phát triển (Flutter, Android Studio/VS Code, SQLite setup...).
+
+Bước 2: THIẾT KẾ UI/UX (GIAO DIỆN & TRẢI NGHIỆM NGƯỜI DÙNG) (Trước khi code mỗi màn hình/tính năng)
+
+Thiết kế Wireframe & Mockup:
+
+Phác thảo giao diện các màn hình chính (danh sách, form, bảng điều khiển...).
+
+Tập trung vào sự đơn giản, trực quan, dễ sử dụng trên mobile.
+
+Sử dụng công cụ thiết kế (Figma, Adobe XD, hoặc giấy bút đơn giản).
+
+Thiết kế UI chi tiết hơn:
+
+Chọn màu sắc, font chữ, icon, style phù hợp.
+
+Đảm bảo tính nhất quán về thiết kế trên toàn ứng dụng (Design System).
+
+Lưu ý về responsiveness (giao diện linh hoạt trên nhiều kích thước màn hình).
+
+Xem xét User Flow (Luồng người dùng): Đảm bảo luồng thao tác người dùng logic và dễ dàng.
+
+Prototype (nếu cần): Tạo prototype tương tác đơn giản để thử nghiệm UI/UX trước khi code.
+
+Bước 3: XÂY DỰNG CẤU TRÚC DỮ LIỆU SQLITE (DATA LAYER)
+
+Thiết kế Schema (Lược đồ cơ sở dữ liệu):
+
+Xác định các bảng cần thiết (customers, items, invoices, suppliers, costs...).
+
+Xác định các trường (columns) cho mỗi bảng và kiểu dữ liệu.
+
+Xác định khóa chính (Primary Key) và khóa ngoại (Foreign Key), các mối quan hệ giữa các bảng.
+
+Tạo Data Source (SqliteDataSource):
+
+Implement class SqliteDataSource (như ví dụ trước) sử dụng thư viện sqflite.
+
+Implement các phương thức CRUD (Create, Read, Update, Delete) cho mỗi bảng.
+
+Xử lý kết nối database, tạo bảng, quản lý transactions...
+
+Tạo Repositories (CustomerRepository, ItemRepository,...):
+
+Định nghĩa abstract class Repository interface cho mỗi entity (Customer, Item...).
+
+Implement class RepositoryImpl (ví dụ CustomerRepositoryImpl) để truy cập SqliteDataSource.
+
+Implement các phương thức trong interface Repository, sử dụng SqliteDataSource để thao tác dữ liệu.
+
+Tạo Models (Data Layer Models): Định nghĩa các class Model (DTO) để chuyển dữ liệu giữa Data Layer và các layer khác.
+
+Bước 4: XÂY DỰNG BUSINESS LOGIC LAYER (DOMAIN LAYER)
+
+Định nghĩa Entities (Domain Entities): Tạo các class Entity (CustomerEntity, ItemEntity...) đại diện cho các đối tượng nghiệp vụ cốt lõi, độc lập với Data Layer và UI.
+
+Tạo Use Cases (GetCustomerListUseCase, CreateInvoiceUseCase,...):
+
+Implement các class Use Case cho mỗi hành động nghiệp vụ (ví dụ: lấy danh sách khách hàng, tạo hóa đơn...).
+
+Mỗi Use Case chỉ nên thực hiện một hành động nghiệp vụ cụ thể.
+
+Use Case sẽ tương tác với các Repositories để truy cập dữ liệu.
+
+Xử lý logic nghiệp vụ cốt lõi, validation dữ liệu trong Use Case.
+
+Viết Unit Tests cho Use Cases: Đảm bảo logic nghiệp vụ hoạt động đúng.
+
+Bước 5: XÂY DỰNG PRESENTATION LAYER (UI - FLUTTER & BLOC/CUBIT)
+
+Tạo Blocs/Cubits (CustomerListBloc, InvoiceBloc,...):
+
+Tạo Bloc/Cubit cho mỗi màn hình hoặc nhóm tính năng liên quan.
+
+Định nghĩa State (trạng thái) của UI (CustomerListState, InvoiceState...).
+
+Định nghĩa Event (sự kiện) từ UI (LoadCustomersEvent, CreateInvoiceEvent...).
+
+Trong Bloc/Cubit, xử lý Events, gọi Use Cases để thực hiện nghiệp vụ, và cập nhật State dựa trên kết quả.
+
+Xây dựng Màn hình (Screens - Flutter Widgets):
+
+Tạo các screen Widget (ví dụ CustomerListScreen, CreateInvoiceScreen).
+
+Sử dụng BlocBuilder, BlocConsumer để rebuild UI khi State của Bloc/Cubit thay đổi.
+
+Sử dụng các Widget Flutter (ListView, Form, Text, Buttons...) để hiển thị UI và tương tác người dùng.
+
+Dispatch Events đến Bloc/Cubit khi có tương tác người dùng (ví dụ: button click).
+
+Tạo Widget tái sử dụng (nếu có): Tạo các component Widget dùng chung (ví dụ LoadingIndicator, CustomButton).
+
+Viết Widget Tests (nếu cần): Kiểm tra giao diện UI cơ bản (rendering).
+
+Bước 6: TÍCH HỢP, KIỂM THỬ & SỬA LỖI
+
+Tích hợp các layer: Đảm bảo các layer hoạt động ăn khớp với nhau (UI -> Bloc -> Use Case -> Repository -> Data Source -> SQLite).
+
+Kiểm thử chức năng (Functional Testing):
+
+Kiểm thử từng tính năng theo tiêu chí hoàn thành (DoD) đã định nghĩa.
+
+Thực hiện test case manually (kiểm thử thủ công) hoặc viết Integration Tests (kiểm thử tích hợp).
+
+Kiểm thử giao diện (UI Testing): Đảm bảo giao diện hiển thị đúng, responsive, và dễ dùng.
+
+Kiểm thử hiệu năng (Performance Testing) cơ bản: Đảm bảo ứng dụng chạy mượt mà trên thiết bị thử nghiệm.
+
+Kiểm thử trên nhiều thiết bị Android: Test trên nhiều kích thước màn hình và phiên bản Android khác nhau (nếu có điều kiện).
+
+Sửa lỗi (Debugging): Sử dụng debug tools của Flutter/Android Studio để tìm và sửa lỗi.
+
+Code Review (nếu làm việc nhóm): Review code bởi thành viên khác để đảm bảo chất lượng code.
+
+Bước 7: PHẢN HỒI VÀ LẶP LẠI (ITERATION)
+
+Thu thập phản hồi:
+
+Phát hành phiên bản Alpha/Beta (nội bộ hoặc nhóm người dùng thử nghiệm) để thu thập phản hồi thực tế.
+
+Quan sát cách người dùng sử dụng ứng dụng.
+
+Lắng nghe ý kiến phản hồi về tính năng, giao diện, trải nghiệm người dùng.
+
+Đánh giá và cải tiến:
+
+Xem xét phản hồi, xác định các vấn đề, lỗi, và những điểm cần cải thiện.
+
+Ưu tiên các cải tiến quan trọng nhất.
+
+Lặp lại quy trình từ Bước 1 để lên kế hoạch và phát triển các cải tiến/tính năng mới ( cho giai đoạn tiếp theo hoặc Sprint tiếp theo).
+
+Bước 8: TRIỂN KHAI (DEPLOYMENT)
+
+Build Release APK/AAB: Tạo file APK hoặc AAB để phát hành ứng dụng Android.
+
+Chuẩn bị thông tin & tài liệu:
+
+Chuẩn bị mô tả ứng dụng, ảnh chụp màn hình, video giới thiệu, privacy policy... cho Google Play Store.
+
+Tạo tài khoản Google Play Console (nếu chưa có):
+
+Đăng ký ứng dụng trên Google Play Console và tải app bundle lên.
+
+Cấu hình các thông tin trên Play Console (pricing, khu vực phát hành,...) và Publish ứng dụng.
+
+Bước 9: GIÁM SÁT & BẢO TRÌ (POST-LAUNCH)
+
+Theo dõi performance và crash reports trên Google Play Console hoặc các công cụ monitoring.
+
+Thu thập phản hồi từ người dùng qua Play Store reviews, kênh hỗ trợ khách hàng.
+
+Sửa lỗi khẩn cấp khi có lỗi nghiêm trọng.
+
+Lên kế hoạch cho các bản cập nhật tiếp theo (thêm tính năng, cải thiện hiệu suất, bảo mật...).
+
+Marketing & Promotion ứng dụng (tùy chọn).
+
+Hỗ trợ người dùng.
+
+4. CÔNG CỤ & THƯ VIỆN HỮU ÍCH
+
+Phát triển Flutter: Flutter SDK, Android Studio/VS Code, Flutter DevTools.
+
+Quản lý State (Bloc/Cubit): flutter_bloc, bloc, equatable.
+
+Cơ sở dữ liệu SQLite: sqflite, path_provider.
+
+Thiết kế UI/UX: Figma, Adobe XD (tùy chọn).
+
+Quản lý Dependencies (phụ thuộc): pubspec.yaml, flutter pub get.
+
+Testing: Flutter testing framework (flutter test), mockito (mocking), integration_test.
+
+Quản lý dự án (nếu làm việc nhóm): Git, GitHub/GitLab/Bitbucket, Trello/Jira/Asana.
+
+Logging: logger (cho debug logs).
+
+Dependency Injection: get_it, injectable (nếu cần thiết cho dự án lớn hơn).
+
+5. LƯU Ý QUAN TRỌNG
+
+MVP is key: Luôn nhớ mục tiêu MVP và tập trung xây dựng những tính năng cốt lõi trước.
+
+Phản hồi người dùng: Lắng nghe và điều chỉnh kế hoạch dựa trên phản hồi người dùng liên tục.
+
+Chất lượng code: Đảm bảo code clean, dễ đọc, dễ bảo trì, và có test cases (nếu có thể).
+
+Linh hoạt: Luôn sẵn sàng điều chỉnh kế hoạch khi có thay đổi về yêu cầu, nguồn lực, hoặc phản hồi từ thị trường.
+
+Học hỏi liên tục: Luôn cập nhật kiến thức về Flutter, Bloc/Cubit, SQLite và các công nghệ liên quan.
