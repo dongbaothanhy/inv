@@ -141,51 +141,60 @@ class _ReportScreenState extends State<ReportScreen> {
   void _showPeriodPicker(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
       builder: (context) {
         return SafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  'Chọn khoảng thời gian',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          child: Container(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height * 0.7,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    'Chọn khoảng thời gian',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              const Divider(),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: _periods.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final period = _periods[index];
-                    return ListTile(
-                      title: Text(period),
-                      trailing:
-                          period == _selectedPeriod
-                              ? const Icon(
-                                Icons.check,
-                                color: AppColors.primary,
-                              )
-                              : null,
-                      onTap: () {
-                        setState(() {
-                          _selectedPeriod = period;
-                        });
-                        Navigator.pop(context);
-                        if (period == 'Tùy chọn') {
-                          _showCustomDatePicker(context);
-                        }
-                      },
-                    );
-                  },
+                const Divider(),
+                Container(
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * 0.5,
+                  ),
+                  child: ListView.builder(
+                    itemCount: _periods.length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final period = _periods[index];
+                      return ListTile(
+                        title: Text(period),
+                        trailing:
+                            period == _selectedPeriod
+                                ? const Icon(
+                                  Icons.check,
+                                  color: AppColors.primary,
+                                )
+                                : null,
+                        onTap: () {
+                          setState(() {
+                            _selectedPeriod = period;
+                          });
+                          Navigator.pop(context);
+                          if (period == 'Tùy chọn') {
+                            _showCustomDatePicker(context);
+                          }
+                        },
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
@@ -235,29 +244,28 @@ class _ReportScreenState extends State<ReportScreen> {
       child: InkWell(
         onTap: () {
           // Chuyển đến màn hình báo cáo chi tiết
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => DetailReportScreen(report['title'])),
-          // );
           _showReportNotImplemented(context, report['title']);
         },
         borderRadius: BorderRadius.circular(16),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(12.0),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(report['icon'], size: 40, color: report['color']),
-              const SizedBox(height: 16),
+              Icon(report['icon'], size: 36, color: report['color']),
+              const SizedBox(height: 12),
               Text(
                 report['title'],
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontSize: 15,
                 ),
                 textAlign: TextAlign.center,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 6),
               Text(
                 report['description'],
                 style: TextStyle(fontSize: 12, color: Colors.grey[600]),

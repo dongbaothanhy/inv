@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/responsive_helper.dart';
 import '../theme/colors.dart';
 import '../widgets/shared_drawer.dart';
+import 'create_invoice_screen.dart';
 
 class InvoiceScreen extends StatelessWidget {
   const InvoiceScreen({super.key});
@@ -103,7 +104,12 @@ class InvoiceScreen extends StatelessWidget {
                 child: InkWell(
                   borderRadius: BorderRadius.circular(28.0),
                   onTap: () {
-                    // Xử lý khi nhấn nút thêm mới
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CreateInvoiceScreen(),
+                      ),
+                    );
                   },
                   child: Center(
                     child: Icon(
